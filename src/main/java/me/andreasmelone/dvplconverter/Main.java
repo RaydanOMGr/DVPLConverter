@@ -1,4 +1,4 @@
-package me.andreasmelone;
+package me.andreasmelone.dvplconverter;
 
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;

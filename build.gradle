@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "io.github.goooler.shadow" version "8.1.8"
 }
 
 group = 'me.andreasmelone'
@@ -13,4 +14,16 @@ dependencies {
     implementation 'org.lz4:lz4-java:1.8.0'
     implementation 'net.sf.jopt-simple:jopt-simple:5.0.4'
     implementation 'commons-codec:commons-codec:1.17.1'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'me.andreasmelone.dvplconverter.Main'
+        )
+    }
+}
+
+build {
+    finalizedBy shadowJar
 }

@@ -1,4 +1,4 @@
-package me.andreasmelone;
+package me.andreasmelone.dvplconverter;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

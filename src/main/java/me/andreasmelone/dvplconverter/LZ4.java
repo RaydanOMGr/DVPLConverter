@@ -3,8 +3,10 @@ package me.andreasmelone.dvplconverter;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
+import net.jpountz.lz4.LZ4SafeDecompressor;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class LZ4 {
     private final static LZ4Factory FACTORY = LZ4Factory.fastestInstance();
@@ -12,11 +14,11 @@ public class LZ4 {
     /**
      * Encodes a buffer using LZ4HC
      *
-     * @param target The buffer into which the result will be written
-     * @param source The uncompressed buffer
+     * @param source The uncompressed buffer, aka the input
+     * @param target The buffer into which the result will be written, aka the output
      * @return The size of the compressed buffer
      */
-    public static int encodeBlockHC(ByteBuffer target, ByteBuffer source) {
+    public static int encodeBlockHC(ByteBuffer source, ByteBuffer target) {
         LZ4Compressor compressor = FACTORY.highCompressor();
         return compressor.compress(
                 source,
@@ -31,14 +33,13 @@ public class LZ4 {
     /**
      * Decodes a buffer using LZ4
      *
-     * @param target The buffer into which the result will be written
-     * @param source The compressed buffer
+     * @param source The compressed buffer, aka the input
+     * @param target The buffer into which the result will be written, aka the output
      * @return The size of the decompressed buffer
      */
-    public static int decodeBlock(ByteBuffer target, ByteBuffer source) {
-        LZ4FastDecompressor decompressor = FACTORY.fastDecompressor();
-        int size = source.get();
-        return decompressor.decompress(source, 4, target, 0, size);
+    public static int decodeBlock(ByteBuffer source, ByteBuffer target) {
+        LZ4SafeDecompressor decompressor = FACTORY.safeDecompressor();
+        return decompressor.decompress(source, 0, source.capacity(), target, 0, target.capacity());
     }
 
     /**

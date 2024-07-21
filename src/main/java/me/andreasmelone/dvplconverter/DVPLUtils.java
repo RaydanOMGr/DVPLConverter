@@ -15,7 +15,7 @@ public class DVPLUtils {
      */
     public static ByteBuffer encodeDVPL(ByteBuffer buffer, boolean shouldCompress) {
         ByteBuffer output = ByteBuffer.allocate(LZ4.maxCompressedLength(buffer.capacity()));
-        int compressedBlockSize = LZ4.encodeBlockHC(output, buffer);
+        int compressedBlockSize = LZ4.encodeBlockHC(buffer, output);
         output.limit(compressedBlockSize);
 
         ByteBuffer footerBuffer;
@@ -65,9 +65,8 @@ public class DVPLUtils {
 
             int decompressedBlockSize = LZ4.decodeBlock(targetBlock, deDVPLBlock);
             // I don't know what the exception message means, I didn't write it originally
-            if (decompressedBlockSize != footerData.oSize) throw new IOException("DVPLDecodeSizeMismatch");
+            if (decompressedBlockSize != footerData.oSize) throw new IOException("The decompressed block size does not match the original size. Expected: " + footerData.oSize + ", got: " + decompressedBlockSize);
 
-            deDVPLBlock.flip();
             return deDVPLBlock;
         } else {
             throw new IOException("Unkown DVPL format");

@@ -69,7 +69,7 @@ public class DVPLUtils {
 
             return deDVPLBlock;
         } else {
-            throw new IOException("Unkown DVPL format");
+            throw new IOException("Unknown DVPL format");
         }
     }
 

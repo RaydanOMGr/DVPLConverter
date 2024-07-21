@@ -20,7 +20,7 @@ This is copied from the previously mentioned repository.
     - UINT32LE compressed block crc32
     - UINT32LE compression Type
         - 0: no compression (format used in all uncompressed `.dvpl` files from SmartDLC)
-        - 1: LZ4 (not observed but handled by this decompressor)
+        - 1: LZ4 (not observed)
         - 2: LZ4_HC (format used in all compressed `.dvpl` files from SmartDLC)
         - 3: RFC1951 (not implemented in this decompressor since it's not observed)
     - 32-bit Magic Number represents "DVPL" literals in utf8 encoding, encoded in big-Endian.      

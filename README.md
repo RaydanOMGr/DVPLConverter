@@ -13,8 +13,8 @@ I found the JS version to be somewhat challenging to install, due to the require
 
 ## Specification
 This is sourced from the previously mentioned repository.
-- The input is a stream of binary data, which may be either compressed or uncompressed.
-- The last 20 bytes in DVPL files follow this structure:
+- Starts with a stream of binary data, which may be either compressed or uncompressed.
+- The last 20 bytes in follow this structure:
     - `UINT32LE` representing the original size of the binary data
     - `UINT32LE` representing the compressed size of the binary data
     - `UINT32LE` representing the CRC32 checksum of the binary data
